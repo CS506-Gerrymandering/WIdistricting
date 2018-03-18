@@ -1,2 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+ul {
+    list-style: none;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.nav-item {
+    display: inline;
+    margin-right: 25px;
+}
