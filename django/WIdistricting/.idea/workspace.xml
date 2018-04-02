@@ -59,11 +59,7 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab13e73d-1f49-4e84-88d5-5541c1f9907f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/WIdistricting/settings.py" afterPath="$PROJECT_DIR$/WIdistricting/settings.py" />
-      <change beforePath="$PROJECT_DIR$/WIdistricting_App/apps.py" afterPath="$PROJECT_DIR$/WIdistricting_App/apps.py" />
-      <change beforePath="$PROJECT_DIR$/WIdistricting_App/tests.py" afterPath="$PROJECT_DIR$/WIdistricting_App/tests.py" />
-    </list>
+    <list default="true" id="ab13e73d-1f49-4e84-88d5-5541c1f9907f" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -220,7 +216,7 @@
       <workItem from="1522611739144" duration="631000" />
       <workItem from="1522612603694" duration="26000" />
       <workItem from="1522705135366" duration="31000" />
-      <workItem from="1522705185566" duration="1053000" />
+      <workItem from="1522705185566" duration="1125000" />
     </task>
     <task id="LOCAL-00001" summary="Testing if Django is communicating w/ TeamCity">
       <created>1522612345366</created>
@@ -261,7 +257,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1741000" />
+    <option name="totallyTimeSpent" value="1813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="219" y="37" width="1400" height="953" extended-state="0" />
