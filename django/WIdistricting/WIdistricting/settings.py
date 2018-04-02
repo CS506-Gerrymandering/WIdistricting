@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'WIdistricting_App.apps.WidistrictingAppConfig',
+    'django_nose'
 ]
 
 MIDDLEWARE = [
@@ -120,4 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEST_RUNNER = "teamcity.django.TeamcityDjangoRunner"
+# TEST_RUNNER = "teamcity.django.TeamcityDjangoRunner"
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
