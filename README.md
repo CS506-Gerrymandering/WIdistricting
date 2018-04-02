@@ -19,4 +19,5 @@ The application has two components, a Django backend as well as an Angular serve
 
 ## Running Backend
 1. Open a terminal window in django/WIdistricting
-2. Run ```python manage.py runserver```
+2. Run ```pip3 install django-nose nose``` to install the testing librarys. Please note that the application is currently configured to report to TeamCity, our CI utility. You may not see an output when ```manage.py test``` is run.
+3. Run ```python manage.py runserver```
