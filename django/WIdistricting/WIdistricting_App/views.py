@@ -5,4 +5,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return 
+    return HttpResponse("home page")
+
+def get_districts(request):
+    return HttpResponse("I work")

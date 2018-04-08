@@ -21,8 +21,11 @@ export class MapComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
-      position: 'relative'
+      position: 'relative',
+      center: [-90, 44.8],
+      zoom: 6
     });
+    this.map.addControl(new mapboxgl.NavigationControl());
   }
 
 }
