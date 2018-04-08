@@ -32,7 +32,6 @@ class District(models.Model):
     district_plan = models.ForeignKey(District_Plan, on_delete=models.CASCADE, null=True)
 
 # These models store data to be used in calculations by the library.
-
 class Pre_District_Plan(models.Model):
     name = models.CharField(max_length=50, null=True)
     year = models.IntegerField(null=True)
