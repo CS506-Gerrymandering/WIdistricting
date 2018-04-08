@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'WIdistricting_App.apps.WidistrictingAppConfig',
-    'django_nose'
+    'django_nose',
 ]
 
 MIDDLEWARE = [

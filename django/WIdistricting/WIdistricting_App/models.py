@@ -45,8 +45,6 @@ class Pre_District(models.Model):
     party = models.CharField(null=True, max_length=32)
     candidate = models.CharField(null=True, max_length=128)
     population = models.IntegerField(null=True)
-    blue_votes = models.IntegerField(null=True)
-    red_votes = models.IntegerField(null=True)
-    total_votes = models.IntegerField(null=True)
+    votes = models.CharField(null=True, max_length=64)
     year = models.IntegerField(null=True)
     #geometry

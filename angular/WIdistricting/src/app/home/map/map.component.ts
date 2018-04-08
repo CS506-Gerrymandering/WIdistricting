@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
   }
 
   createMap() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaHNhcmFidSIsImEiOiJjamV5c2hwYzcxbHZsMndtbTh0eGg4OHA0In0.F9BQxFrDAtgt9ouBarFRbg';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2tidW9ubyIsImEiOiJjamMxNTZqOGYwNDd2MndwaGxzMmx4dGI5In0.7b1mLqadQxU7eJci9wukGw';
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
@@ -25,7 +25,8 @@ export class MapComponent implements OnInit {
       center: [-90, 44.8],
       zoom: 6
     });
-    this.map.addControl(new mapboxgl.NavigationControl());
+    this.map.setStyle('mapbox://styles/skbuono/cjfrd0dh85pdh2so5ixruvpwk')
+    // this.map.addControl(new mapboxgl.NavigationControl());
   }
 
 }
