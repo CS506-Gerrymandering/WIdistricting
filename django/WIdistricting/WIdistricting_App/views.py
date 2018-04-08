@@ -9,3 +9,6 @@ def index(request):
 
 def get_districts(request):
     return HttpResponse("I work")
+
+def get_district_plans(request):
+    return HttpResponse("district plans")
