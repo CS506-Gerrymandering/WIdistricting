@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'WIdistricting_App.apps.WidistrictingAppConfig',
-    'django_nose'
+    'django_nose',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +123,8 @@ STATIC_URL = '/static/'
 
 # TEST_RUNNER = "teamcity.django.TeamcityDjangoRunner"
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=WIdistricting_App',
+]
