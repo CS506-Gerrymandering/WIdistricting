@@ -1,5 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/0.13/config/configuration-file.html
+var path = require('path');
 
 module.exports = function (config) {
   config.set({
@@ -14,17 +15,18 @@ module.exports = function (config) {
       require('@angular/cli/plugins/karma'),
       require('karma-phantomjs-launcher')
     ],
+    reporters: ['teamcity', 'coverage-istanbul'],
     client:{
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      reports: [ 'html', 'teamcity' ],
+      dir: path.join(__dirname, 'coverage'),
       fixWebpackSourcePaths: true
     },
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['teamcity'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

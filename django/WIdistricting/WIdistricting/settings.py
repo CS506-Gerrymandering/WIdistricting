@@ -123,3 +123,8 @@ STATIC_URL = '/static/'
 
 # TEST_RUNNER = "teamcity.django.TeamcityDjangoRunner"
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=WIdistricting_App',
+]
