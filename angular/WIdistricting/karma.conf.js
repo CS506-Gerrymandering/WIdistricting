@@ -22,7 +22,8 @@ module.exports = function (config) {
     coverageIstanbulReporter: {
       reports: [ 'html', 'teamcity' ],
       dir: path.join(__dirname, 'coverage'),
-      fixWebpackSourcePaths: true
+      fixWebpackSourcePaths: true,
+      includeAllSources: true
     },
     angularCli: {
       environment: 'dev'
