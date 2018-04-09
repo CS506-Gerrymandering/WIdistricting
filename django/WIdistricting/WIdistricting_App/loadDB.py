@@ -44,6 +44,7 @@ class loadData():
         final = results.groupby('SEN').sum()
         print(final)
 
+    #load state assembly populations
     def loadStateAsmPops(csvPopulationsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvPopulationsFileName)
         results = df[['ASM','PERSONS18']]
