@@ -17,9 +17,9 @@ class loadData():
         with open(os.getcwd()+'/data/'+csvElectionsFileName, 'r') as csvFile:
             reader = csv.reader(csvFile)
             for row in reader:
-                if row[2]=='President':
+                if row[2]=='President' or row[2]=='Senate':
                     continue
-                pre_district = Pre_District(district_name=row[3],office=row[2],party=row[5],candidate=row[6],votes=row[7], year=2016)
+                pre_district = Pre_District(district_name=row[1], district_no=row[3],office=row[2],party=row[5],candidate=row[6],votes=row[7], year=2016)
                 pre_district.save()
 
     # PERSONS18 = people who can vote and is row 14
@@ -34,6 +34,12 @@ class loadData():
         results['CON'].replace(' ',np.nan,inplace=True)
         results.dropna(subset=['CON'], inplace=True)
         final = results.groupby('CON').sum()
+        for line in final.itertuples():
+            cur_dist = getattr(line, "CON")
+            cur = pre_district.objects.get(office__contains='House', district_no=cur_dist)
+            cur.population = getattr(line, 'PERSONS18')
+            cur.save()
+            print(cur)
 
     #load the populations of state senate districts
     def loadSenPops(csvPopulationsFileName):
@@ -53,7 +59,7 @@ class loadData():
         final = results.groupby('ASM').sum()
         print(final)
 
-loadData.loadElections('2016-11-08_General.csv')
+#loadData.loadElections('2016-11-08_General.csv')
 loadData.loadFedConPops('Wards2017_ED12toED16.csv')
-loadData.loadSenPops('Wards2017_ED12toED16.csv')
-loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
+#loadData.loadSenPops('Wards2017_ED12toED16.csv')
+#loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
