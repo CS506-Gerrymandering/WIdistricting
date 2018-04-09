@@ -50,7 +50,7 @@ class testElectionData():
 
     
     def testElectionDataAPI(self):
-        pass
+        nt.assert_true(False, "The Test Exists")
     
     def teardown(self):
         self.electionFileName = None
