@@ -42,11 +42,10 @@ class Pre_District_Plan(models.Model):
 class Pre_District(models.Model):
     pre_district_id = models.AutoField(primary_key=True)
     district_no = models.CharField(null=True, max_length=8)
-    district_name = models.CharField(max_length=100, default='None')
     office = models.CharField(null=True, max_length=64)
-    party = models.CharField(null=True, max_length=32)
-    candidate = models.CharField(null=True, max_length=128)
     population = models.IntegerField(null=True)
-    votes = models.CharField(null=True, max_length=64)
+    red_votes = models.CharField(null=True, max_length=32)
+    blue_votes = models.CharField(null=True, max_length=32)
+    total_votes = models.CharField(null=True, max_length=64)
     year = models.IntegerField(null=True)
     #geometry
