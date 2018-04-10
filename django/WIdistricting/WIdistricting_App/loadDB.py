@@ -15,7 +15,23 @@ class loadData():
     ##expect file to be in /data
     def loadElections(csvElectionsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvElectionsFileName)
-        results = df['district', 'total votes', 'party', 'votes']
+        results = df['district', 'office', 'total votes', 'party', 'votes']
+        results = results[results.office != 'President']
+        results = results[results.office != 'Senate']
+
+        #change to other
+        results = results[results.party != 'IND']
+        results = results[results.party != 'LIB']
+        results = results[results.party != 'WGR']
+        results = results.dropna()
+
+        #aggrigate votes for each party in each district
+        #add to database
+
+
+
+
+
         '''
         with open(os.getcwd()+'/data/'+csvElectionsFileName, 'r') as csvFile:
             reader = csv.reader(csvFile)
