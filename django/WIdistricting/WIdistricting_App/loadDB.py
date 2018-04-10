@@ -15,22 +15,60 @@ class loadData():
     ##expect file to be in /data
     def loadElections(csvElectionsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvElectionsFileName)
-        results = df['district', 'office', 'total votes', 'party', 'votes']
+
+        results = df[['district', 'office', 'total_votes', 'party', 'votes']]
         results = results[results.office != 'President']
         results = results[results.office != 'Senate']
 
         #change to other
-        results = results[results.party != 'IND']
-        results = results[results.party != 'LIB']
-        results = results[results.party != 'WGR']
-        results = results.dropna()
-
-        #aggrigate votes for each party in each district
-        #add to database
-
+        results = results.replace(to_replace='IND', value='OTH')
+        results = results.replace(to_replace='LIB', value='OTH')
+        results = results.replace(to_replace='WGR', value='OTH')
+        results = results.fillna(value='OTH')
+        #print(results)
+        #print(results.party.unique())
 
 
+        #TODO: aggregate votes for each congressional district
 
+        #Create df with just House votes
+        cong = results[results.office == 'House']
+
+        #For each district sum republican votes and add to total votes
+        for district in cong.district.unique():
+            cur = cong[cong.district == district]
+
+            other_votes = 0
+            blue_votes = 0
+            red_votes = 0
+            total_votes = 0
+            red = cur[cur.party == 'REP']
+            for row in red.itertuples():
+                red_votes += getattr(row, 'votes')
+
+            blue = cur[cur.party == 'DEM']
+            for row in blue.itertuples():
+                blue_votes += getattr(row, 'votes')
+
+            other = cur[cur.party == 'OTH']
+            for row in other.itertuples():
+                other_votes += getattr(row, 'votes')
+
+            print(district)
+            print(red_votes)
+            print(blue_votes)
+            print(other_votes)
+            total_votes = red_votes + blue_votes + other_votes
+            print(total_votes) 
+            print('/////////////////////')
+
+
+            #print(cur)
+            #print('Votes for district ' + district ' = ' + cur.sum())
+
+        #TODO: aggregate votes for each state senate district
+        #TODO: aggregate votes for each state assembly district
+        #TODO: add to database
 
         '''
         with open(os.getcwd()+'/data/'+csvElectionsFileName, 'r') as csvFile:
@@ -42,10 +80,6 @@ class loadData():
                 pre_district.save()
         '''
 
-    # PERSONS18 = people who can vote and is row 14
-    # ASM = assembly row 7
-    # SEN = senate row 8
-    # CON = congress and is row 9
 
     #load the populations of each congressional district
     def loadFedConPops(csvPopulationsFileName):
@@ -83,7 +117,7 @@ class loadData():
         final = results.groupby('ASM').sum()
         print(final)
 
-#loadData.loadElections('2016-11-08_General.csv')
-loadData.loadFedConPops('Wards2017_ED12toED16.csv')
+loadData.loadElections('2016-11-08_General.csv')
+#loadData.loadFedConPops('Wards2017_ED12toED16.csv')
 #loadData.loadSenPops('Wards2017_ED12toED16.csv')
 #loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
