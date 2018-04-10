@@ -14,6 +14,9 @@ from WIdistricting_App.models import Pre_District
 class loadData():
     ##expect file to be in /data
     def loadElections(csvElectionsFileName):
+        df = pd.read_csv(os.getcwd()+'/data/'+csvElectionsFileName)
+        results = df['district', 'total votes', 'party', 'votes']
+        '''
         with open(os.getcwd()+'/data/'+csvElectionsFileName, 'r') as csvFile:
             reader = csv.reader(csvFile)
             for row in reader:
@@ -21,6 +24,7 @@ class loadData():
                     continue
                 pre_district = Pre_District(district_name=row[1], district_no=row[3],office=row[2],party=row[5],candidate=row[6],votes=row[7], year=2016)
                 pre_district.save()
+        '''
 
     # PERSONS18 = people who can vote and is row 14
     # ASM = assembly row 7
@@ -31,12 +35,16 @@ class loadData():
     def loadFedConPops(csvPopulationsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvPopulationsFileName)
         results = df[['CON','PERSONS18']]
-        results['CON'].replace(' ',np.nan,inplace=True)
-        results.dropna(subset=['CON'], inplace=True)
+        #results = results['CON'].replace(' ',np.nan)
+        #results = results.dropna(subset=['CON'])
         final = results.groupby('CON').sum()
+        print(final)
         for line in final.itertuples():
-            cur_dist = getattr(line, "CON")
-            cur = pre_district.objects.get(office__contains='House', district_no=cur_dist)
+            print(line)
+            cur_dist = getattr(line, 'Index')
+            if cur_dist == ' ':
+                continue
+            cur = Pre_District.objects.get(office__contains='House', district_no=cur_dist)
             cur.population = getattr(line, 'PERSONS18')
             cur.save()
             print(cur)
