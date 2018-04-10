@@ -127,4 +127,5 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=WIdistricting_App',
+    '--cover-html'
 ]

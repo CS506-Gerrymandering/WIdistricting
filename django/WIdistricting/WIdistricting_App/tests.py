@@ -34,19 +34,17 @@ class testElectionData():
             for row in reader:
                 counter += 1
                 if(counter > 1 and random.randint(0, 100) * probTested <= 5):
-                    district = Pre_District(district_name=row[1], district_no=row[3], office=row[2], party=row[5], candidate=row[6],votes=row[7], year=2016)
+                    district = Pre_District(district_no=row[3], office=row[2], party=row[5],  year=2016)
                     if(district.office is 'President'):
                         continue
                     district_number = row[3]
-                    candidate = row[6]
-                    votes = row[7]
+                    office=row[2]
 
 
                     #print(district_number == district.district_name)
 
                     nt.assert_almost_equal(district_number, district.district_no, None, "Testing District Number Integrity",None)
-                    nt.assert_almost_equal(candidate, district.candidate, None, "Testing to make sure Candidate is equal", None)
-                    nt.assert_almost_equal(votes, district.votes, None, "Testing for Votes integrity", None)
+                    nt.assert_almost_equal(office, district.office, None, "Testing to make sure Candidate is equal", None)
 
     
     def testElectionDataAPI(self):
