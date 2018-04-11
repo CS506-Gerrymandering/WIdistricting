@@ -16,88 +16,137 @@ class loadData():
     def loadElections(csvElectionsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvElectionsFileName)
 
-        results = df[['district', 'office', 'total_votes', 'party', 'votes']]
-        results = results[results.office != 'President']
-        results = results[results.office != 'Senate']
-
-        #change to other
-        results = results.replace(to_replace='IND', value='OTH')
-        results = results.replace(to_replace='LIB', value='OTH')
-        results = results.replace(to_replace='WGR', value='OTH')
-        results = results.fillna(value='OTH')
-        #print(results)
-        #print(results.party.unique())
+        df = df.fillna('IND')
+        df = df.replace(to_replace='WGR', value='IND')
+        df = df.replace(to_replace='LIB', value='IND')
 
 
-        #TODO: aggregate votes for each congressional district
-
-        #Create df with just House votes
-        cong = results[results.office == 'House']
-
-        #For each district sum republican votes and add to total votes
-        for district in cong.district.unique():
-            cur = cong[cong.district == district]
-
-            other_votes = 0
-            blue_votes = 0
-            red_votes = 0
-            total_votes = 0
-            red = cur[cur.party == 'REP']
-            for row in red.itertuples():
-                red_votes += getattr(row, 'votes')
-
-            blue = cur[cur.party == 'DEM']
-            for row in blue.itertuples():
-                blue_votes += getattr(row, 'votes')
-
-            other = cur[cur.party == 'OTH']
-            for row in other.itertuples():
-                other_votes += getattr(row, 'votes')
-
-            print(district)
-            print(red_votes)
-            print(blue_votes)
-            print(other_votes)
-            total_votes = red_votes + blue_votes + other_votes
-            print(total_votes) 
-            print('/////////////////////')
+        house = df.loc[df['office'] == 'House']
+        state_asm = df.loc[df['office'] == 'State Assembly']
+        state_sen = df.loc[df['office'] == 'State Senate']
 
 
-            #print(cur)
-            #print('Votes for district ' + district ' = ' + cur.sum())
+        unique_districts = house.district.unique()
+        pop_df = loadData.loadFedConPops('Wards2017_ED12toED16.csv')
+        for i in unique_districts:
+            curr_dis = house.loc[house['district'] == i]
+            a = curr_dis.groupby('party').sum()
+            dem_votes = 0
+            rep_votes = 0
+            ind_votes = 0
+            try:
+                dem_votes = a.votes['DEM']
+            except Exception as e:
+                #print('no dem\n')
+                pass
+            try:
+                rep_votes = a.votes['REP']
+            except Exception as e:
+                #print('no rep\n')
+                pass
+            try:
+                ind_votes = a.votes['IND']
+            except Exception as e:
+                #print('no ind\n')
+                pass
 
-        #TODO: aggregate votes for each state senate district
-        #TODO: aggregate votes for each state assembly district
-        #TODO: add to database
+            total_votes = dem_votes + rep_votes + ind_votes
+            district_no = int(i)
+            office = 'House'
+            year = 2016
 
-        '''
-        with open(os.getcwd()+'/data/'+csvElectionsFileName, 'r') as csvFile:
-            reader = csv.reader(csvFile)
-            for row in reader:
-                if row[2]=='President' or row[2]=='Senate':
-                    continue
-                pre_district = Pre_District(district_name=row[1], district_no=row[3],office=row[2],party=row[5],candidate=row[6],votes=row[7], year=2016)
-                pre_district.save()
-        '''
+            population = pop_df.PERSONS18[district_no]
+            print(population)
 
+            pre_district = Pre_District(district_no=district_no, office=office,
+            red_votes=rep_votes, blue_votes=dem_votes, total_votes=total_votes,
+            population=population, year=year)
+            pre_district.save()
+            #print("House District Number: " + str(i))
+            #print(a)
+            #print('\n')
+
+        unique_districts = state_asm.district.unique()
+        pop_df = loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
+        for i in unique_districts:
+            curr_dis = state_asm.loc[state_asm['district'] == i]
+            a = curr_dis.groupby('party').sum()
+            dem_votes = 0
+            rep_votes = 0
+            ind_votes = 0
+            try:
+                dem_votes = a.votes['DEM']
+            except Exception as e:
+                #print('no dem\n')
+                pass
+            try:
+                rep_votes = a.votes['REP']
+            except Exception as e:
+                #print('no rep\n')
+                pass
+            try:
+                ind_votes = a.votes['IND']
+            except Exception as e:
+                #print('no ind\n')
+                pass
+
+            total_votes = dem_votes + rep_votes + ind_votes
+            district_no = int(i)
+            office = 'State Assembly'
+            year = 2016
+            population = pop_df.PERSONS18[district_no]
+
+            pre_district = Pre_District(district_no=district_no, office=office,
+            red_votes=rep_votes, blue_votes=dem_votes, total_votes=total_votes,
+            population=population, year=year)
+            pre_district.save()
+
+
+        unique_districts = state_sen.district.unique()
+        pop_df = loadData.loadSenPops('Wards2017_ED12toED16.csv')
+        for i in unique_districts:
+            curr_dis = state_sen.loc[state_sen['district'] == i]
+            a = curr_dis.groupby('party').sum()
+            dem_votes = 0
+            rep_votes = 0
+            ind_votes = 0
+            try:
+                dem_votes = a.votes['DEM']
+            except Exception as e:
+                #print('no dem\n')
+                pass
+            try:
+                rep_votes = a.votes['REP']
+            except Exception as e:
+                #print('no rep\n')
+                pass
+            try:
+                ind_votes = a.votes['IND']
+            except Exception as e:
+                #print('no ind\n')
+                pass
+
+            total_votes = dem_votes + rep_votes + ind_votes
+            district_no = int(i)
+            office = 'State Senate'
+            year = 2016
+            population = pop_df.PERSONS18[district_no]
+
+            pre_district = Pre_District(district_no=district_no, office=office,
+            red_votes=rep_votes, blue_votes=dem_votes, total_votes=total_votes,
+            population=population, year=year)
+            pre_district.save()
 
     #load the populations of each congressional district
     def loadFedConPops(csvPopulationsFileName):
         df = pd.read_csv(os.getcwd()+'/data/'+csvPopulationsFileName)
         results = df[['CON','PERSONS18']]
-        #results = results['CON'].replace(' ',np.nan)
-        #results = results.dropna(subset=['CON'])
+        results['CON'].replace(' ',np.nan,inplace=True)
+        results = results.dropna(subset=['CON'])
+        results.CON = pd.to_numeric(results.CON)
+        results = results.sort_values(by=['CON'], ascending=True)
         final = results.groupby('CON').sum()
-        print(final)
-        for line in final.itertuples():
-            print(line)
-            cur_dist = getattr(line, 'Index')
-            if cur_dist == ' ':
-                continue
-            cur = Pre_District.objects.get(office__contains='House', district_no=cur_dist)
-            cur.population = getattr(line, 'PERSONS18')
-            cur.save()
-            print(cur)
+        return final
 
     #load the populations of state senate districts
     def loadSenPops(csvPopulationsFileName):
@@ -105,8 +154,10 @@ class loadData():
         results = df[['SEN','PERSONS18']]
         results['SEN'].replace(' ',np.nan,inplace=True)
         results.dropna(subset=['SEN'], inplace=True)
+        results.SEN = pd.to_numeric(results.SEN)
+        results = results.sort_values(by=['SEN'], ascending=True)
         final = results.groupby('SEN').sum()
-        print(final)
+        return final
 
     #load state assembly populations
     def loadStateAsmPops(csvPopulationsFileName):
@@ -114,10 +165,9 @@ class loadData():
         results = df[['ASM','PERSONS18']]
         results['ASM'].replace(' ',np.nan,inplace=True)
         results.dropna(subset=['ASM'], inplace=True)
+        results.ASM = pd.to_numeric(results.ASM)
+        results = results.sort_values(by=['ASM'], ascending=True)
         final = results.groupby('ASM').sum()
-        print(final)
+        return final
 
 loadData.loadElections('2016-11-08_General.csv')
-#loadData.loadFedConPops('Wards2017_ED12toED16.csv')
-#loadData.loadSenPops('Wards2017_ED12toED16.csv')
-#loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
