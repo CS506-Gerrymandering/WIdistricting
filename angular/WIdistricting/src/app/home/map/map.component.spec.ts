@@ -22,4 +22,8 @@ describe('MapComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('map should be created', () => {
+    expect(component.map).toBeTruthy();
+  });
 });

@@ -1,2 +1,10 @@
 <div id='map' style='width: 100vw; height: 85vh'></div>
+<div id='menu'>
+    <input id='Congress' type='radio' name='rtoggle' [value]='Congress' checked='checked' (change)='switchMap("Congress")'>
+    <label for='Congress'>Congress</label>
+    <input id='State Senate' type='radio' name='rtoggle' [value]='Senate' (change)='switchMap("State Senate")'>
+    <label for='State Senate'>State Senate</label>
+    <input id='State Assembly' type='radio' name='rtoggle' [value]='Assembly' (change)='switchMap("State Assembly")'>
+    <label for='State Assembly'>State Assembly</label>
+</div>
 
