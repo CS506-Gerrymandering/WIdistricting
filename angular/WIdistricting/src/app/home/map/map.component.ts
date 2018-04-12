@@ -8,7 +8,7 @@ import * as mapboxgl from 'mapbox-gl';
 })
 export class MapComponent implements OnInit {
 
-  public map;
+  public map: any;
   
   constructor() { }
 
@@ -25,6 +25,26 @@ export class MapComponent implements OnInit {
       center: [-90, 44.8],
       zoom: 6,
       interactive: false
+    });
+    this.handlePointerEvents();
+  }
+
+  handlePointerEvents() {
+    let map = this.map;
+    let popup;
+    //hover events
+    this.map.on('mousemove', function (e) {
+      var features = map.queryRenderedFeatures(e.point);
+      console.log(features)
+      if (popup) {
+        popup.remove();
+      }
+      if (features[0].properties.STATENAME == "Wisconsin") {
+        popup = new mapboxgl.Popup({closeButton: false})
+          .setLngLat(e.lngLat)
+          .setHTML(features[0].layer.id)
+        popup.addTo(map);
+      }
     });
   }
   
