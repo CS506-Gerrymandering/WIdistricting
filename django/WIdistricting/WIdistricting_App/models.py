@@ -23,7 +23,9 @@ class District_Plan(models.Model):
 
 
 class District(models.Model):
-    district_id = models.IntegerField(primary_key=True)
+    district_id = models.AutoField(primary_key=True)
+    district_no = models.CharField(null=True, max_length=8)
+    office = models.CharField(null=True, max_length=64)
     polsby_popper = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     shwartzberg = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     convex_hull_ratio = models.DecimalField(null=True, max_digits=5, decimal_places=5)
