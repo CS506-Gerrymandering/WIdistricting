@@ -38,10 +38,14 @@ export class MapComponent implements OnInit {
     this.map.on('mousemove', function (e) {
       if (!hover_disabled) {
         const features = map.queryRenderedFeatures(e.point);
+        console.log(features)
         //determine district type
         let type;
-        if (features[0].properties.NAMELSAD) {
-          type = "Senate/Assembly";
+        if (features[0].properties.District_S) {
+          type = "Assembly";
+        }
+        else if (features[0].properties.SEN_NUM) {
+          type = "Senate";
         }
         else {
           type = "Congress";
@@ -50,15 +54,18 @@ export class MapComponent implements OnInit {
         if (popup) {
           popup.remove();
         }
-        if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "tl_2014_55_sldu-41dhhn"
-           || features[0].layer["source-layer"] == "tl_2014_55_sldl-38vsz9") {
+        if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "Wisconsin_Senate_Districts_20-aki1n5"
+           || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
           let popup_text: string;
           //set popup data according to district type
           if (type == "Congress") {
             popup_text = features[0].layer.id;
           }
+          else if (type == "Assembly") {
+            popup_text = "State Assembly District " + features[0].properties.District_S;
+          }
           else {
-            popup_text = features[0].properties.NAMELSAD;
+            popup_text = "State Senate District " + features[0].properties.SEN_NUM;
           }
           popup = new mapboxgl.Popup({closeButton: false})
             .setLngLat(e.lngLat)
@@ -72,22 +79,28 @@ export class MapComponent implements OnInit {
       const features = map.queryRenderedFeatures(e.point);
       //determine district type
       let type;
-      if (features[0].properties.NAMELSAD) {
-        type = "Senate/Assembly";
+      if (features[0].properties.District_S) {
+        type = "Assembly";
+      }
+      else if (features[0].properties.SEN_NUM) {
+        type = "Senate";
       }
       else {
-        type = "Congress"
+        type = "Congress";
       }
-      if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "tl_2014_55_sldu-41dhhn"
-      || features[0].layer["source-layer"] == "tl_2014_55_sldl-38vsz9") {
+      if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "Wisconsin_Senate_Districts_20-aki1n5"
+      || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
         hover_disabled = true;
         let popup_text: string;
         //set popup data according to district type
         if (type == "Congress") {
           popup_text = features[0].layer.id;
         }
+        else if (type == "Assembly") {
+          popup_text = "State Assembly District " + features[0].properties.District_S;
+        }
         else {
-          popup_text = features[0].properties.NAMELSAD;
+          popup_text = "State Senate District " + features[0].properties.SEN_NUM;
         }
         popup = new mapboxgl.Popup()
           .setLngLat(e.lngLat)
