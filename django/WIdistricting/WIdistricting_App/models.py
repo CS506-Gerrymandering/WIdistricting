@@ -31,7 +31,6 @@ class District(models.Model):
     convex_hull_ratio = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     length_width = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     reock = models.DecimalField(null=True, max_digits=5, decimal_places=5)
-    district_plan = models.ForeignKey(District_Plan, on_delete=models.CASCADE, null=True)
 
 # These models store data to be used in calculations by the library.
 class Pre_District_Plan(models.Model):
