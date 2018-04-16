@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 ul {
     list-style: none;
@@ -43,7 +42,7 @@ ul {
 .scroll::-webkit-scrollbar {
     width: 7px;
 }
-  
+
 .scroll::-webkit-scrollbar-thumb {
     background-color: #525047;
 }
