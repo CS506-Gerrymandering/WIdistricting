@@ -26,8 +26,8 @@ export class MapComponent implements OnInit {
       position: 'relative',
       center: [-90, 44.8],
       zoom: 6,
-      interactive: false
     });
+    this.map.addControl(new mapboxgl.NavigationControl());    
   }
 
   handlePointerEvents() {
