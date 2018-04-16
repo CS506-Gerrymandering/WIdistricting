@@ -39,7 +39,7 @@ def state_assembly(filename):
 	for feature in layer:
 
 	# feature field one is the district ID
-		ida = feature.GetField(1)
+		ida = feature['District_N']
 	# the feature's geometry
 		geom = feature.GetGeometryRef()
 		geometry = geom.Clone()
@@ -69,7 +69,7 @@ def state_assembly(filename):
 	avg_sch = total_sch/99.0
 	avg_hull = total_hull/99.0
 
-	equi_pop = districts_in_percent_deviation(district_plan, 1.0)
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
 		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
@@ -98,7 +98,7 @@ def state_senate(filename):
 	for feature in layer:
 
 	    # feature field one is the district ID
-	    ida = feature.GetField(1)
+	    ida = feature['SEN_NUM']
 	    print(ida)
 	    # the feature's geometry
 	    geom = feature.GetGeometryRef()
@@ -129,7 +129,7 @@ def state_senate(filename):
 	avg_polsby = total_polsby_popper/33.0
 	avg_sch = total_sch/33.0
 	avg_hull = total_hull/33.0
-	equi_pop = districts_in_percent_deviation(district_plan, 1.0)
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
 		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
@@ -188,12 +188,12 @@ def us_house(filename):
 	avg_sch = total_sch/8.0
 	avg_hull = total_hull/8.0
 
-	equi_pop = districts_in_percent_deviation(district_plan, 1.0)
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
 		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
 
 if __name__ == "__main__":
-	state_assembly('data/shapefiles/state_asm/tl_2014_55_sldl.shp') 
-	state_senate('data/shapefiles/state_senate/tl_2014_55_sldu.shp')
+	state_assembly('data/shapefiles/state_asm/Wisconsin_State_Assembly_Districts.shp') 
+	state_senate('data/shapefiles/state_senate/Wisconsin_Senate_Districts_2011.shp')
 	us_house('data/shapefiles/us_house/WI5.shp')
