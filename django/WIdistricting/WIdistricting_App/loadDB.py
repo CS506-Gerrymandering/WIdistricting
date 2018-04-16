@@ -5,7 +5,7 @@ from django.conf import settings
 import pandas as pd
 import numpy as np
 
-sys.path.append("/Users/dylangunther/Documents/GitHub/WisconsinDistrictMap/django/WIdistricting")
+
 sys.path.append("./..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "WIdistricting.settings")
 django.setup()
