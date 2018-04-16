@@ -6,7 +6,7 @@ class District_Plan(models.Model):
     name = models.CharField(max_length=50, null=True)
     year = models.IntegerField(null=True)
     map_id = models.IntegerField(null=True)
-    equal_population = models.NullBooleanField()
+    equal_population = models.IntegerField(null=True)
     efficiency_gap = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     mean_median_diff = models.DecimalField(null=True, max_digits=5, decimal_places=5)
     partisan_bias = models.DecimalField(null=True, max_digits=5, decimal_places=5)

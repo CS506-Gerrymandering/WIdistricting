@@ -8,7 +8,9 @@ import django
 from django.conf import settings
 import pandas as pd
 import numpy as np
-sys.path.append("/home/shreya/School/506/WisconsinDistrictMap/django/WIdistricting")
+
+
+sys.path.append("./..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "WIdistricting.settings")
 django.setup()
 from WIdistricting_App.models import District, Pre_District, District_Plan
@@ -31,21 +33,24 @@ def state_assembly(filename):
 	layer.ResetReading()
 
 	district_plan = []
+	office = 'State Assembly'
+
 
 	for feature in layer:
 
 	# feature field one is the district ID
-		ida = feature.GetField(1)
+		ida = feature['District_N']
 	# the feature's geometry
 		geom = feature.GetGeometryRef()
 		geometry = geom.Clone()
-		district_plan.append(D(id=int(ida), geometry=geometry))
+		print(ida)
+		pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('population')
+		district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
 
 	total_polsby_popper = 0
 	total_sch = 0
 	total_hull = 0
 	## Django Stuff
-	office = 'State Assembly'
 	for district in district_plan:
 
 		polsby_popper_score = polsby_popper(district)
@@ -64,8 +69,9 @@ def state_assembly(filename):
 	avg_sch = total_sch/99.0
 	avg_hull = total_hull/99.0
 
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull)
+		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
 
 ## State Senate Parsing
@@ -87,19 +93,21 @@ def state_senate(filename):
 	layer.ResetReading()
 
 	district_plan = []
+	office = 'State Senate'
 
 	for feature in layer:
 
 	    # feature field one is the district ID
-	    ida = feature.GetField(1)
+	    ida = feature['SEN_NUM']
 	    print(ida)
 	    # the feature's geometry
 	    geom = feature.GetGeometryRef()
 	    geometry = geom.Clone()
-	    district_plan.append(D(id=int(ida), geometry=geometry))
-
-
-	office = 'State Senate'
+	    pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='Senate').values('population')
+	    if len(pre_districts) == 1:
+	    	district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
+	    else:
+	    	district_plan.append(D(id=int(ida), geometry=geometry))
 
 	total_polsby_popper = 0
 	total_sch = 0
@@ -121,16 +129,15 @@ def state_senate(filename):
 	avg_polsby = total_polsby_popper/33.0
 	avg_sch = total_sch/33.0
 	avg_hull = total_hull/33.0
-
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull)
+		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
 
 
 
 def us_house(filename):
 	shape_file = filename
-	print("HOUSE")
 	driver = ogr.GetDriverByName('ESRI Shapefile')
 
 	data_source = driver.Open(shape_file, 0)
@@ -144,6 +151,8 @@ def us_house(filename):
 	layer.ResetReading()
 
 	district_plan = []
+	office = 'House'
+
 
 	for feature in layer:
 
@@ -152,11 +161,10 @@ def us_house(filename):
 	    # the feature's geometry
 	    geom = feature.GetGeometryRef()
 	    geometry = geom.Clone()
-	    
-	    district_plan.append(D(id=int(ida), geometry=geometry))
+	    pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='House').values('population')
+	    district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
 
 
-	office = 'House'
 	total_polsby_popper = 0
 	total_sch = 0
 	total_hull = 0
@@ -180,11 +188,12 @@ def us_house(filename):
 	avg_sch = total_sch/8.0
 	avg_hull = total_hull/8.0
 
+	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull)
+		avg_convex_hull=avg_hull, equal_population=equi_pop)
 	district_plan_model.save()
 
 if __name__ == "__main__":
-	state_assembly('data/shapefiles/state_asm/tl_2014_55_sldl.shp') 
-	state_senate('data/shapefiles/state_senate/tl_2014_55_sldu.shp')
+	state_assembly('data/shapefiles/state_asm/Wisconsin_State_Assembly_Districts.shp') 
+	state_senate('data/shapefiles/state_senate/Wisconsin_Senate_Districts_2011.shp')
 	us_house('data/shapefiles/us_house/WI5.shp')
