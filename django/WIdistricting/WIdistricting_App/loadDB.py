@@ -28,7 +28,7 @@ class loadData():
 
         unique_districts = house.district.unique()
         pop_df = loadData.loadFedConPops('Wards2017_ED12toED16.csv')
-        for i in unique_districts:
+        for i in range(1,9):
             curr_dis = house.loc[house['district'] == i]
             a = curr_dis.groupby('party').sum()
             dem_votes = 0
@@ -67,7 +67,7 @@ class loadData():
 
         unique_districts = state_asm.district.unique()
         pop_df = loadData.loadStateAsmPops('Wards2017_ED12toED16.csv')
-        for i in unique_districts:
+        for i in range(1,100):
             curr_dis = state_asm.loc[state_asm['district'] == i]
             a = curr_dis.groupby('party').sum()
             dem_votes = 0
@@ -101,9 +101,9 @@ class loadData():
             pre_district.save()
 
 
-        unique_districts = state_sen.district.unique()
+        unique_districts = range(1,34)
         pop_df = loadData.loadSenPops('Wards2017_ED12toED16.csv')
-        for i in unique_districts:
+        for i in range(1,34):
             curr_dis = state_sen.loc[state_sen['district'] == i]
             a = curr_dis.groupby('party').sum()
             dem_votes = 0
