@@ -5,8 +5,8 @@ from django.conf import settings
 import pandas as pd
 import numpy as np
 
-#/Users/dylangunther/Documents/GitHub/WisconsinDistrictMap/django/WIdistricting
 sys.path.append("/Users/dylangunther/Documents/GitHub/WisconsinDistrictMap/django/WIdistricting")
+sys.path.append("./..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "WIdistricting.settings")
 django.setup()
 from WIdistricting_App.models import Pre_District
@@ -56,7 +56,6 @@ class loadData():
             year = 2016
 
             population = pop_df.PERSONS18[district_no]
-            print(population)
 
             pre_district = Pre_District(district_no=district_no, office=office,
             red_votes=rep_votes, blue_votes=dem_votes, total_votes=total_votes,
