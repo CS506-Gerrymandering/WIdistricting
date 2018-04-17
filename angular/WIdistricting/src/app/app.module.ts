@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material';
+import {MatTableModule, MatToolbarModule} from '@angular/material';
 import { MatSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -34,7 +34,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRouting,
     MatToolbarModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [MetricService],
   bootstrap: [AppComponent]
