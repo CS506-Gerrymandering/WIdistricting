@@ -11,4 +11,8 @@ export class MetricService {
     return this.http.get('http://localhost:8000/api/get_all_district_metrics');
   }
 
+  getStateWideMetrics(): any {
+    return this.http.get('http://localhost:8000/api/get_statewide_metrics');
+  }
 }
+

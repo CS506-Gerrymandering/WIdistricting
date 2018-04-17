@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
       center: [-90, 44.8],
       zoom: 6,
     });
-    this.map.addControl(new mapboxgl.NavigationControl());    
+    this.map.addControl(new mapboxgl.NavigationControl());
   }
 
   handlePointerEvents(data: any) {
@@ -46,6 +46,7 @@ export class MapComponent implements OnInit {
     this.map.on('mousemove', function (e) {
       if (!hover_disabled) {
         const features = map.queryRenderedFeatures(e.point);
+        //console.log(features)
         //determine district type
         let type;
         if (features[0].properties.District_S) {
@@ -123,7 +124,7 @@ export class MapComponent implements OnInit {
       }
     });
   }
-  
+
   //switches Mapbox style to display different district types
   switchMap(value: String) {
     let id;
@@ -136,7 +137,7 @@ export class MapComponent implements OnInit {
     else if (value == "State Assembly") {
       id = "cjfwogwk616q32rmidytk7ov8";
     }
-    this.map.setStyle('mapbox://styles/skbuono/' + id);    
+    this.map.setStyle('mapbox://styles/skbuono/' + id);
   }
 
 }

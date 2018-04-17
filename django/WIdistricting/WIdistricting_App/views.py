@@ -20,3 +20,7 @@ def get_district_plans(request):
 def get_all_district_metrics(request):
     response = serializers.serialize('json', District.objects.all())
     return HttpResponse(response)
+
+def get_statewide_metrics(request):
+    response = serializers.serialize('json', District_Plan.objects.all())
+    return HttpResponse(response)

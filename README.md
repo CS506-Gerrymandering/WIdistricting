@@ -19,5 +19,5 @@ The application has two components, a Django backend as well as an Angular serve
 
 ## Running Backend
 1. Open a terminal window in django/WIdistricting
-2. Run ```pip3 install django-nose nose``` to install the testing library. Please note that the application is currently configured to report to TeamCity, our CI utility. You may not see an output when ```manage.py test``` is run.
+2. Run ```pip3 install django-nose nose django-cors-headers``` to install the testing library and the cross domain authorization library. Please note that the application is currently configured to report to TeamCity, our CI utility. You may not see an output when ```manage.py test``` is run.
 3. Run ```python manage.py runserver```

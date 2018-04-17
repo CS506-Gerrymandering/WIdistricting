@@ -43,7 +43,7 @@ ul {
 .scroll::-webkit-scrollbar {
     width: 7px;
 }
-  
+
 .scroll::-webkit-scrollbar-thumb {
     background-color: #525047;
 }
