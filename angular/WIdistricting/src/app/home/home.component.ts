@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MetricService} from '../metric.service';
 
 @Component({
@@ -8,10 +8,8 @@ import {MetricService} from '../metric.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private metrics: MetricService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.metrics.getAllDistrictMetrics().subscribe(data => console.log(data));
-  }
+  ngOnInit() { }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs/Rx"
+import { Component, Input, OnInit } from '@angular/core';
+import { MetricService } from '../../metric.service';
 import * as mapboxgl from 'mapbox-gl';
 
 @Component({
@@ -10,12 +10,19 @@ import * as mapboxgl from 'mapbox-gl';
 export class MapComponent implements OnInit {
 
   public map: any;
+  private metrics: any;
+  @Input() thing: string;
 
-  constructor() {}
+  constructor(private metricService: MetricService) {}
 
   ngOnInit() {
+    this.metricService.getAllDistrictMetrics().subscribe(data => (this.handleMetrics(data)));   
     this.createMap();
-    this.handlePointerEvents();
+  }
+
+  handleMetrics(data: any) {
+    this.metrics = data;
+    this.handlePointerEvents(data);    
   }
 
   createMap() {
@@ -30,15 +37,15 @@ export class MapComponent implements OnInit {
     this.map.addControl(new mapboxgl.NavigationControl());    
   }
 
-  handlePointerEvents() {
+  handlePointerEvents(data: any) {
     let map = this.map;
     let popup;
+    let metrics = data;
     let hover_disabled = false;
     //hover events
     this.map.on('mousemove', function (e) {
       if (!hover_disabled) {
         const features = map.queryRenderedFeatures(e.point);
-        console.log(features)
         //determine district type
         let type;
         if (features[0].properties.District_S) {
@@ -69,7 +76,10 @@ export class MapComponent implements OnInit {
           }
           popup = new mapboxgl.Popup({closeButton: false})
             .setLngLat(e.lngLat)
-            .setHTML(popup_text)
+            .setHTML("<div class='center'>" + popup_text +
+              "</br> Convex Hull Ratio: .87687" +
+              "</br> Polsby Popper: .43038" +
+              "</br> Schwartzberg: .65603 </div>")
           popup.addTo(map);
         }
       }
