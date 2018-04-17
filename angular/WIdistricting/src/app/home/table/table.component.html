@@ -1,5 +1,48 @@
-<!--div class="table-container mat-elevation-z9">
-  <mat-table #table [dataSource]="dataSource">
+<div class="container">
+  <div class="row">
+    <h2>Statewide Metrics</h2>
+    <p>These metrics are based on averages of aggregated district metrics</p>
+  </div>
+  <div class="row">
+    <div class="table-container mat-elevation-z9">
+      <mat-table #table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="Name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
 
-  </mat-table>
-</div -->
+        <!-- Name Column -->
+        <ng-container matColumnDef="Average Convex Hull">
+          <mat-header-cell *matHeaderCellDef> Average Convex Hull </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.avg_convex_hull}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Average Polsyby Popper">
+          <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.avg_polsby_popper}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Average Schwartzberg">
+          <mat-header-cell *matHeaderCellDef> Average Schwartzberg </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.avg_schwartzberg}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Equal Population">
+          <mat-header-cell *matHeaderCellDef> Equal Population </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.equal_population}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Year">
+          <mat-header-cell *matHeaderCellDef> Year </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

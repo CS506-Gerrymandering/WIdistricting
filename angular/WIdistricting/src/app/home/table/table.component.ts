@@ -8,26 +8,26 @@ import {MetricService} from '../../metric.service';
 })
 export class TableComponent implements OnInit {
 
-  public dataSource: StatewideMetrics[] = [];
+  public dataSource: StatewideMetrics[];
+  public displayedColumns = ['Name', 'Average Convex Hull', 'Average Polsyby Popper', 'Average Schwartzberg', 'Equal Population', 'Year'];
   constructor(private metricService: MetricService) { }
   ngOnInit() {
-    this.metricService.getStateWideMetrics().subscribe(data => this.processStatewideMetrics(data))
+    this.metricService.getStateWideMetrics().subscribe(data => this.processStatewideMetrics(data));
   }
 
 
   processStatewideMetrics(statewideMetrics: any): void {
-    var data = statewideMetrics;
-    for(var i = 0; i < 3; i++){
-      data = data[i].fields;
-      console.log(data);
-      this.dataSource[i].avg_convex_hull = data.avg_convex_hull;
-      this.dataSource[i].avg_polsby_popper = data.avg_polsby_popper;
-      this.dataSource[i].avg_schwartzberg = data.avg_schwartzberg;
-      this.dataSource[i].equal_population = data.equal_population;
-      this.dataSource[i].name = data.name;
-      this.dataSource[i].year = data.year;
+    // initializing the array <-- LMAO can't believe that worked
+    this.dataSource = [{} as StatewideMetrics, {} as StatewideMetrics, {} as StatewideMetrics];
+    for (let i = 0; i < 3; i++) {
+      this.dataSource[i].avg_convex_hull = statewideMetrics[i].fields.avg_convex_hull;
+      this.dataSource[i].avg_polsby_popper = statewideMetrics[i].fields.avg_polsby_popper;
+      this.dataSource[i].avg_schwartzberg = statewideMetrics[i].fields.avg_schwartzberg;
+      this.dataSource[i].equal_population = statewideMetrics[i].fields.equal_population;
+      this.dataSource[i].name = statewideMetrics[i].fields.name;
+      this.dataSource[i].year = statewideMetrics[i].fields.year;
+      console.log(this.dataSource);
     }
-    console.log(this.dataSource);
   }
 
 }
