@@ -16,13 +16,13 @@ export class MapComponent implements OnInit {
   constructor(private metricService: MetricService) {}
 
   ngOnInit() {
-    this.metricService.getAllDistrictMetrics().subscribe(data => (this.handleMetrics(data)));   
+    this.metricService.getAllDistrictMetrics().subscribe(data => (this.handleMetrics(data)));
     this.createMap();
   }
 
   handleMetrics(data: any) {
     this.metrics = data;
-    this.handlePointerEvents(data);    
+    this.handlePointerEvents(data);
   }
 
   createMap() {
@@ -35,6 +35,8 @@ export class MapComponent implements OnInit {
       zoom: 6,
     });
     this.map.addControl(new mapboxgl.NavigationControl());
+    // disabling scrolling
+    this.map.scrollZoom.disable();
   }
 
   handlePointerEvents(data: any) {
