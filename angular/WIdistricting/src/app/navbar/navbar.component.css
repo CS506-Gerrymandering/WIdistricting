@@ -3,6 +3,19 @@
 }
 
 .navBarItem {
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: white;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 10px 15px 10px 15px;
+}
+
+.navBarItem:hover{
+  background-color: #3949ab;
+}
+
+#navbar {
+  z-index: 50;
+  position: fixed;
+  top: 0;
 }
