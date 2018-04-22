@@ -63,20 +63,23 @@ export class MapComponent implements OnInit {
           popup.remove();
         }
         if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "Wisconsin_Senate_Districts_20-aki1n5"
-           || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
+        || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
           let district;
           let popup_text: string;
           //set popup data according to district 
           if (type == "Congress") {
             popup_text = features[0].layer.id;
+            map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
             district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];
           }
           else if (type == "Assembly") {
             popup_text = "State Assembly District " + features[0].properties.District_S;
+            map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                        
             district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];
           }
           else {
             popup_text = "State Senate District " + features[0].properties.SEN_NUM;
+            map.setFilter("senate-hover", ["==", "SEN_NUM", features[0].properties.SEN_NUM]);                        
             district = metrics.filter(dist => dist.fields.office == "State Senate").filter(dist => dist.fields.district_no == features[0].properties.SEN_NUM)[0];            
           }
           popup = new mapboxgl.Popup({closeButton: false})
@@ -86,8 +89,8 @@ export class MapComponent implements OnInit {
               "</br> Polsby Popper: " + district.fields.polsby_popper +
               "</br> Schwartzberg: " + district.fields.shwartzberg + "</div>")
           popup.addTo(map);
-        }
       }
+     }
     });
     //click events
     this.map.on('click', function (e) {
@@ -111,25 +114,43 @@ export class MapComponent implements OnInit {
         //set popup data according to district type
         if (type == "Congress") {
           popup_text = features[0].layer.id;
+          map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
           district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];          
         }
         else if (type == "Assembly") {
           popup_text = "State Assembly District " + features[0].properties.District_S;
+          map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                              
           district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];          
         }
         else {
           popup_text = "State Senate District " + features[0].properties.SEN_NUM;
+          map.setFilter("senate-hover", ["==", "SEN_NUM", features[0].properties.SEN_NUM]);                                  
           district = metrics.filter(dist => dist.fields.office == "State Senate").filter(dist => dist.fields.district_no == features[0].properties.SEN_NUM)[0];                  
         }
         popup = new mapboxgl.Popup()
           .setLngLat(e.lngLat)
-          .setHTML("<div class='center'>" + popup_text + "<br/> More metric data goes here!" + "</div>")
+          .setHTML("<div class='center'>" + popup_text + "</br> Convex Hull Ratio: " + district.fields.convex_hull_ratio +
+          "</br> Polsby Popper: " + district.fields.polsby_popper +
+          "</br> Schwartzberg: " + district.fields.shwartzberg + "</div>")
         popup.addTo(map);
         //re-enables hover listening when click popup is closed
         popup.on('close', function(e) {
           hover_disabled = false;
         })
       }
+    });
+    // Reset the hover layers' filter when the mouse leaves the layers.
+    this.map.on("mouseleave", "assembly", function() {
+      if (!hover_disabled)
+        map.setFilter("assembly-hover", ["==", "District_S", ""]);
+    });
+    this.map.on("mouseleave", "senate", function() {
+      if (!hover_disabled)
+        map.setFilter("senate-hover", ["==", "SEN_NUM", ""]);
+    });
+    this.map.on("mouseleave", "congress", function() {
+      if (!hover_disabled)
+        map.setFilter("congress-hover", ["==", "DISTRICT", ""]);
     });
   }
 
