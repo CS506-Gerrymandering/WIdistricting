@@ -68,9 +68,9 @@ export class MapComponent implements OnInit {
           let popup_text: string;
           //set popup data according to district 
           if (type == "Congress") {
-            popup_text = features[0].layer.id;
+            popup_text = "Congressional District " + features[0].properties.DISTRICT;
             map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
-            district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];
+            district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].properties.DISTRICT)[0];
           }
           else if (type == "Assembly") {
             popup_text = "State Assembly District " + features[0].properties.District_S;
@@ -113,9 +113,9 @@ export class MapComponent implements OnInit {
         let district;
         //set popup data according to district type
         if (type == "Congress") {
-          popup_text = features[0].layer.id;
+          popup_text = "Congressional District " + features[0].properties.DISTRICT;          
           map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
-          district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];          
+          district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].properties.DISTRICT)[0];          
         }
         else if (type == "Assembly") {
           popup_text = "State Assembly District " + features[0].properties.District_S;
@@ -140,18 +140,18 @@ export class MapComponent implements OnInit {
       }
     });
     // Reset the hover layers' filter when the mouse leaves the layers.
-    this.map.on("mouseleave", "assembly", function() {
-      if (!hover_disabled)
-        map.setFilter("assembly-hover", ["==", "District_S", ""]);
-    });
-    this.map.on("mouseleave", "senate", function() {
-      if (!hover_disabled)
-        map.setFilter("senate-hover", ["==", "SEN_NUM", ""]);
-    });
-    this.map.on("mouseleave", "congress", function() {
-      if (!hover_disabled)
-        map.setFilter("congress-hover", ["==", "DISTRICT", ""]);
-    });
+    // this.map.on("mouseleave", "assembly", function() {
+    //   if (!hover_disabled)
+    //     map.setFilter("assembly-hover", ["==", "District_S", ""]);
+    // });
+    // this.map.on("mouseleave", "senate", function() {
+    //   if (!hover_disabled)
+    //     map.setFilter("senate-hover", ["==", "SEN_NUM", ""]);
+    // });
+    // this.map.on("mouseleave", "congress", function() {
+    //   if (!hover_disabled)
+    //     map.setFilter("congress-hover", ["==", "DISTRICT", ""]);
+    // });
   }
 
   //switches Mapbox style to display different district types
