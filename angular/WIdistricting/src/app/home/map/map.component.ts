@@ -11,7 +11,6 @@ export class MapComponent implements OnInit {
 
   public map: any;
   private metrics: any;
-  @Input() thing: string;
 
   constructor(private metricService: MetricService) {}
 
@@ -48,7 +47,6 @@ export class MapComponent implements OnInit {
     this.map.on('mousemove', function (e) {
       if (!hover_disabled) {
         const features = map.queryRenderedFeatures(e.point);
-        //console.log(features)
         //determine district type
         let type;
         if (features[0].properties.District_S) {
@@ -66,23 +64,27 @@ export class MapComponent implements OnInit {
         }
         if (features[0].properties.STATENAME == "Wisconsin" || features[0].layer["source-layer"] == "Wisconsin_Senate_Districts_20-aki1n5"
            || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
+          let district;
           let popup_text: string;
-          //set popup data according to district type
+          //set popup data according to district 
           if (type == "Congress") {
             popup_text = features[0].layer.id;
+            district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];
           }
           else if (type == "Assembly") {
             popup_text = "State Assembly District " + features[0].properties.District_S;
+            district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];
           }
           else {
             popup_text = "State Senate District " + features[0].properties.SEN_NUM;
+            district = metrics.filter(dist => dist.fields.office == "State Senate").filter(dist => dist.fields.district_no == features[0].properties.SEN_NUM)[0];            
           }
           popup = new mapboxgl.Popup({closeButton: false})
             .setLngLat(e.lngLat)
             .setHTML("<div class='center'>" + popup_text +
-              "</br> Convex Hull Ratio: .87687" +
-              "</br> Polsby Popper: .43038" +
-              "</br> Schwartzberg: .65603 </div>")
+              "</br> Convex Hull Ratio: " + district.fields.convex_hull_ratio +
+              "</br> Polsby Popper: " + district.fields.polsby_popper +
+              "</br> Schwartzberg: " + district.fields.shwartzberg + "</div>")
           popup.addTo(map);
         }
       }
@@ -105,15 +107,19 @@ export class MapComponent implements OnInit {
       || features[0].layer["source-layer"] == "Wisconsin_Assembly_Districts_-akm189") {
         hover_disabled = true;
         let popup_text: string;
+        let district;
         //set popup data according to district type
         if (type == "Congress") {
           popup_text = features[0].layer.id;
+          district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].layer.id.substring(3))[0];          
         }
         else if (type == "Assembly") {
           popup_text = "State Assembly District " + features[0].properties.District_S;
+          district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];          
         }
         else {
           popup_text = "State Senate District " + features[0].properties.SEN_NUM;
+          district = metrics.filter(dist => dist.fields.office == "State Senate").filter(dist => dist.fields.district_no == features[0].properties.SEN_NUM)[0];                  
         }
         popup = new mapboxgl.Popup()
           .setLngLat(e.lngLat)
