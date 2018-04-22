@@ -1,5 +1,8 @@
-h1, p, ul, li {
+h1, p, ul {
   margin-bottom: -20px;
+}
+li {
+  margin-bottom: -30px;
 }
 p, ul, li {
   font-size: 1.15em;
