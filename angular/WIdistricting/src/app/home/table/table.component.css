@@ -12,3 +12,6 @@
   max-height: 500px;
 }
 
+.mat-row:hover{
+  background-color: #e0e0e0;
+}

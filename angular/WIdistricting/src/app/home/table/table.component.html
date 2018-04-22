@@ -32,18 +32,9 @@
           <mat-cell *matCellDef="let element"> {{element.avg_schwartzberg}} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="Equal Population">
-          <mat-header-cell *matHeaderCellDef> Equal Population </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.equal_population}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Year">
-          <mat-header-cell *matHeaderCellDef> Year </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
-        </ng-container>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
       </mat-table>
     </div>
   </div>

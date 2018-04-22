@@ -1,0 +1,11 @@
+.content {
+  font-family: 'Raleway', Roboto, sans-serif;
+}
+
+h2, p {
+  margin-bottom: -24px;
+}
+
+p {
+  font-size: 1.3em;
+}

@@ -9,12 +9,11 @@ import {MetricService} from '../../metric.service';
 export class TableComponent implements OnInit {
 
   public dataSource: StatewideMetrics[];
-  public displayedColumns = ['Name', 'Average Convex Hull', 'Average Polsyby Popper', 'Average Schwartzberg', 'Equal Population', 'Year'];
+  public displayedColumns = ['Name', 'Average Convex Hull', 'Average Polsyby Popper', 'Average Schwartzberg'];
   constructor(private metricService: MetricService) { }
   ngOnInit() {
     this.metricService.getStateWideMetrics().subscribe(data => this.processStatewideMetrics(data));
   }
-
 
   processStatewideMetrics(statewideMetrics: any): void {
     //console.log(statewideMetrics);
@@ -24,9 +23,7 @@ export class TableComponent implements OnInit {
       this.dataSource[i].avg_convex_hull = statewideMetrics[i].fields.avg_convex_hull;
       this.dataSource[i].avg_polsby_popper = statewideMetrics[i].fields.avg_polsby_popper;
       this.dataSource[i].avg_schwartzberg = statewideMetrics[i].fields.avg_schwartzberg;
-      this.dataSource[i].equal_population = statewideMetrics[i].fields.equal_population;
       this.dataSource[i].name = statewideMetrics[i].fields.name;
-      this.dataSource[i].year = statewideMetrics[i].fields.year;
     }
   }
 

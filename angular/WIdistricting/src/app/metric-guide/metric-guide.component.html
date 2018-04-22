@@ -1,15 +1,22 @@
-<div class='about-page' style='white-space:pre-wrap'>
-    <div class="col-md-8 col-md-offset-2 about-text scroll">
-      <div class='col-xs-12'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lobortis, erat sagittis finibus ullamcorper, tellus velit venenatis metus, at venenatis sem dui et orci. Nullam quis quam ligula. Suspendisse lacus massa, accumsan sed tempus ac, tempor et nisl. Sed nisi justo, scelerisque vel quam ac, ultricies rutrum leo. Curabitur sit amet maximus magna. In consequat facilisis viverra. Nullam ultrices mauris non erat eleifend tempus.
-          
-          Aenean id semper orci. Nam at nisi massa. Quisque dapibus eget metus congue sagittis. Praesent molestie viverra ligula, sed dapibus nulla finibus ac. Aenean non malesuada ligula. Duis consectetur id mi ut laoreet. Pellentesque dapibus ac ex nec efficitur. Mauris nulla nunc, vulputate eget posuere quis, suscipit ut ex.
-          
-          Nunc orci leo, congue sed leo quis, gravida aliquet lorem. Mauris tincidunt tortor purus, in tempor nisi accumsan tempus. Nulla facilisi. Ut sit amet mauris hendrerit, feugiat tellus ut, pulvinar ligula. Etiam ultrices mollis massa, finibus bibendum sem. Nulla facilisi. Sed convallis lacus quam, et ornare velit luctus eget. Nullam fringilla ex ex, sit amet varius tortor lobortis in. Nam cursus sollicitudin ante, in ornare dolor hendrerit sed. Sed ut tellus vitae sapien faucibus vestibulum at et risus. Etiam vel metus tortor. Etiam non volutpat lorem.
-          
-          In interdum fermentum tellus ac porta. Maecenas sit amet ipsum ante. Sed semper sem neque, sit amet sagittis ante suscipit eu. Proin sed dictum nunc. Morbi congue est eu sapien vestibulum, nec consectetur mauris ornare. Proin ut sapien sed mauris volutpat hendrerit maximus et nunc. Mauris euismod orci vel ante viverra, non suscipit ante dignissim. Ut convallis dapibus nisl, vel tempor felis. Vivamus cursus velit et leo congue, sit amet placerat odio tempor. Vestibulum ultricies facilisis dictum. Curabitur pulvinar id leo eget pretium.
-          
-          Integer tincidunt lectus at nisl laoreet cursus. Vivamus vel tellus et eros posuere dapibus vel ac nisi. Quisque rutrum nec sapien id volutpat. Cras luctus mauris ut velit laoreet, id ullamcorper metus auctor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque quam lacus, euismod id sagittis id, consequat in risus. Nulla hendrerit condimentum pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fringilla dapibus lacus eu dapibus. Suspendisse dignissim nisi consectetur iaculis faucibus. Aenean eu diam eget diam elementum varius. Aenean massa erat, ultrices sit amet congue non, luctus a arcu. Vestibulum consequat libero vulputate, fringilla lacus id, consectetur felis. Aenean imperdiet eget elit at cursus. Quisque sodales pellentesque mauris non lobortis. Maecenas sem libero, condimentum et maximus sed, gravida nec neque.
+<div style='white-space:pre-wrap;'>
+    <div class="col-md-8 col-md-offset-2">
+      <div class='col-xs-12 content mat-elevation-z5' style="margin-top: 32px">
+        <h2>Overview</h2>
+        <p style="font-size: 1.5em !important">When it comes to redistricting, gerrymandering - the practice of establishing a political advantage for a particular party or group by manipulating district boundaries - is always something to be wary of. There are several different ways to evaluate if gerrymandering is occuring - common ways include evaluating compactness, partisan symmetry, and equal population.</p>
+        <h2>Common Definitions</h2>
+        <p><strong>Indentation</strong>: <em>Perimeter-area based measures of compactness</em> evaluate the indentation of district boundaries. Shapes with a smooth perimeter are more compact, while those with a contorted, squiggly perimeter are less compact.</p>
+        <p><strong>Dispersion</strong>: <em>Dispersion-based measures of compactness</em> evaluate the extent to which a shape's area is spread out from a central point. For example, a circle is very compact, while a barbell is less compact.</p>
+        <p><strong>Packing</strong>: Packing a party’s backers in a few districts causes their preferred candidate to win by enormous margins. All votes cast for the winning candidate above the 50% + 1 threshold for victory are wasted.</p>
+        <p><strong>Cracking</strong>: Cracking a party’s supporters among many districts causes their preferred candidate to lose by relatively narrow margins. All votes cast for the losing candidate are wasted.</p>
+        <h2>Compactness Measures</h2>
+        <p><strong>Polsby-Popper</strong>: Measures the indentation of a district. The measure is the ratio of the area of the district to the area of a circle whose circumference is equal to the perimeter of the district.</p>
+        <p><strong>Schwartzberg</strong>: Measures the indentation of a district. The measure is the ratio of the perimeter of the district to the circumference of a circle whose area is equal to the area of the district.</p>
+        <p><strong>Convex Hull</strong>: Measures the dispersion of the district. The measure is the ratio of the area of the district to the area of the minimum convex polygon that can enclose the district’s geometry.</p>
+        <h2>Partisan Symmetry Measures</h2>
+        <p><strong>Efficiency Gap</strong>: Measures a political party’s wasted votes from packing and cracking.</p>
+        <p><strong>Mean-Median Difference</strong>: Measures how much a party’s mean and median vote shares diverge. If they diverge significantly, the district is skewed in favor of one party and against its opponent.</p>
+        <h2>Equal Population Measure</h2>
+        <p><strong>Equal Population</strong>: Determines if all of the districts in a plan fall within a target range of population.</p>
       </div>
   </div>
 </div>
