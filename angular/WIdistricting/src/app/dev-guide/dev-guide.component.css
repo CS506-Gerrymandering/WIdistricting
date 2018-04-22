@@ -1,0 +1,16 @@
+h1, p, ul, li {
+  margin-bottom: -20px;
+}
+p, ul, li {
+  font-size: 1.15em;
+}
+h2 {
+  margin-bottom: -45px;
+}
+.content {
+  font-family: 'Raleway', Roboto, sans-serif;
+}
+
+h1, h2 {
+  color: #3F51B5;
+}

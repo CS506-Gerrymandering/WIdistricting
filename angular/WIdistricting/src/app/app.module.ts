@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {MatCardModule, MatRadioModule, MatTableModule, MatToolbarModule} from '@angular/material';
+import {MatCardModule, MatRadioModule, MatTableModule, MatToolbarModule, MatTooltipModule} from '@angular/material';
 import { MatSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { DevGuideComponent } from './dev-guide/dev-guide.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MetricService} from './metric.service';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,12 +33,14 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     RouterModule,
     AppRouting,
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
     HttpClientModule,
     MatTableModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTooltipModule
   ],
   providers: [MetricService],
   bootstrap: [AppComponent]

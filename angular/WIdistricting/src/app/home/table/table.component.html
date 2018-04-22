@@ -16,19 +16,19 @@
 
         <!-- Convex Hull Column -->
         <ng-container matColumnDef="Average Convex Hull">
-          <mat-header-cell *matHeaderCellDef> Average Convex Hull </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures the average dispersion of the districts"> Average Convex Hull </span></mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.avg_convex_hull}} </mat-cell>
         </ng-container>
 
         <!-- Polsby Popper Column -->
         <ng-container matColumnDef="Average Polsyby Popper">
-          <mat-header-cell *matHeaderCellDef> Average Polsby Popper </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures the average indentation of the districts"> Average Polsby Popper </span></mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.avg_polsby_popper}} </mat-cell>
         </ng-container>
 
         <!-- Schwartzberg Column -->
         <ng-container matColumnDef="Average Schwartzberg">
-          <mat-header-cell *matHeaderCellDef> Average Schwartzberg </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Another measure of the average indentation of the districts"> Average Schwartzberg </span></mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.avg_schwartzberg}} </mat-cell>
         </ng-container>
 
