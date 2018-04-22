@@ -1,4 +1,4 @@
-<div id='map' style='width: 100vw; height: 70vh'></div>
+<div id='map' style='width: 100vw; height: 70vh' class="mat-elevation-z5"></div>
 <div id='menu' style="padding: 0 0 0 0; margin-left: 3%">
   <!--mat-card style="padding: 18px 18px 18px 18px">
     <input id='Congress' type='radio' name='rtoggle' [value]='Congress' checked='checked' (change)='switchMap("Congress")'>
@@ -10,7 +10,7 @@
   </mat-card-->
   <mat-card  style="padding: 18px 18px 18px 18px">
     <mat-radio-group>
-      <mat-radio-button [value]='1' name='rtoggle' checked='checked' (change)='switchMap("Congress")' class="toggle">Congress</mat-radio-button>
+      <mat-radio-button [value]='1' name='rtoggle' checked='checked' (change)='switchMap("Congress")' class="toggle">House</mat-radio-button>
       <mat-radio-button [value]='2' name='rtoggle' (change)='switchMap("State Senate")' class="toggle">State Senate</mat-radio-button>
       <mat-radio-button [value]="3" name='rtoggle' (change)='switchMap("State Assembly")' class="toggle">State Assembly</mat-radio-button>
     </mat-radio-group>
