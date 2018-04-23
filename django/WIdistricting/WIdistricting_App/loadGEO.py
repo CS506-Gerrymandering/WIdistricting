@@ -3,6 +3,7 @@ import os
 from libdistrict.district import District as D
 from libdistrict.compactness import polsby_popper, schwartzberg, convex_hull_ratio
 from libdistrict.equal_population import districts_in_percent_deviation
+from libdistrict.partisan_symmetry import efficiency_gap, mean_median_diff
 from osgeo import gdal, ogr
 import django
 from django.conf import settings
@@ -43,9 +44,14 @@ def state_assembly(filename):
 	# the feature's geometry
 		geom = feature.GetGeometryRef()
 		geometry = geom.Clone()
-		print(ida)
 		pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('population')
-		district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
+		red_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('red_votes')
+		blue_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('blue_votes')
+		total_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('total_votes')
+		total_votes = total_votes[0]['total_votes']
+		party_votes = {'rep': int(red_votes[0]['red_votes']), 'dem': int(blue_votes[0]['blue_votes'])}
+		district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population'], party_votes=party_votes
+			, votes=int(total_votes)))
 
 	total_polsby_popper = 0
 	total_sch = 0
@@ -68,10 +74,11 @@ def state_assembly(filename):
 	avg_polsby = total_polsby_popper/99.0
 	avg_sch = total_sch/99.0
 	avg_hull = total_hull/99.0
-
+	efficiency = efficiency_gap(district_plan, 'dem', 'rep')
+	mean_median = mean_median_diff(district_plan, 'dem', 'rep')
 	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull, equal_population=equi_pop)
+		avg_convex_hull=avg_hull, equal_population=equi_pop, efficiency_gap=efficiency, mean_median_diff=mean_median)
 	district_plan_model.save()
 
 ## State Senate Parsing
@@ -104,10 +111,12 @@ def state_senate(filename):
 	    geom = feature.GetGeometryRef()
 	    geometry = geom.Clone()
 	    pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='Senate').values('population')
-	    if len(pre_districts) == 1:
-	    	district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
-	    else:
-	    	district_plan.append(D(id=int(ida), geometry=geometry))
+	    red_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('red_votes')
+	    blue_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('blue_votes')
+	    total_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('total_votes')
+	    party_votes = {'rep': int(red_votes[0]['red_votes']), 'dem': int(blue_votes[0]['blue_votes'])}
+	    district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population'], party_votes=party_votes
+	    	, votes=int(total_votes[0]['total_votes'])))
 
 	total_polsby_popper = 0
 	total_sch = 0
@@ -129,9 +138,12 @@ def state_senate(filename):
 	avg_polsby = total_polsby_popper/33.0
 	avg_sch = total_sch/33.0
 	avg_hull = total_hull/33.0
+	efficiency = efficiency_gap(district_plan, 'dem', 'rep')
+	mean_median = mean_median_diff(district_plan, 'dem', 'rep')
+
 	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull, equal_population=equi_pop)
+		avg_convex_hull=avg_hull, equal_population=equi_pop, efficiency_gap=efficiency, mean_median_diff=mean_median)
 	district_plan_model.save()
 
 
@@ -162,7 +174,13 @@ def us_house(filename):
 	    geom = feature.GetGeometryRef()
 	    geometry = geom.Clone()
 	    pre_districts = Pre_District.objects.filter(district_no=int(ida), office__contains='House').values('population')
-	    district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population']))
+	    red_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('red_votes')
+	    blue_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('blue_votes')
+	    total_votes = Pre_District.objects.filter(district_no=int(ida), office__contains='Assembly').values('total_votes')
+	    party_votes = {'rep': int(red_votes[0]['red_votes']), 'dem': int(blue_votes[0]['blue_votes'])}
+
+	    district_plan.append(D(id=int(ida), geometry=geometry, population=pre_districts[0]['population'], party_votes=party_votes
+	    	, votes=int(total_votes[0]['total_votes'])))
 
 
 	total_polsby_popper = 0
@@ -187,10 +205,12 @@ def us_house(filename):
 	avg_polsby = total_polsby_popper/8.0
 	avg_sch = total_sch/8.0
 	avg_hull = total_hull/8.0
+	efficiency = efficiency_gap(district_plan, 'dem', 'rep')
+	mean_median = mean_median_diff(district_plan, 'dem', 'rep')
 
 	equi_pop = districts_in_percent_deviation(district_plan, 10.0)
 	district_plan_model = District_Plan(name=office, year=2016, avg_polsby_popper=avg_polsby, avg_schwartzberg=avg_sch, 
-		avg_convex_hull=avg_hull, equal_population=equi_pop)
+		avg_convex_hull=avg_hull, equal_population=equi_pop, efficiency_gap=efficiency, mean_median_diff=mean_median)
 	district_plan_model.save()
 
 if __name__ == "__main__":
