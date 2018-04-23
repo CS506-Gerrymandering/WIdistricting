@@ -32,6 +32,15 @@
           <mat-cell *matCellDef="let element"> {{element.avg_schwartzberg}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="efficiency_gap">
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures a political party’s wasted votes from packing and cracking"> Average Efficiency Gap </span></mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.efficiency_gap}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mean_median_diff">
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures how much a party’s mean and median vote shares diverge"> Mean Median Difference </span></mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.mean_median_diff}} </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
