@@ -69,17 +69,17 @@ export class MapComponent implements OnInit {
           //set popup data according to district 
           if (type == "Congress") {
             popup_text = "Congressional District " + features[0].properties.DISTRICT;
-            map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
+            // map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
             district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].properties.DISTRICT)[0];
           }
           else if (type == "Assembly") {
             popup_text = "State Assembly District " + features[0].properties.District_S;
-            map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                        
+            // map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                        
             district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];
           }
           else {
             popup_text = "State Senate District " + features[0].properties.SEN_NUM;
-            map.setFilter("senate-hover", ["==", "SEN_NUM", features[0].properties.SEN_NUM]);                        
+            // map.setFilter("senate-hover", ["==", "SEN_NUM", features[0].properties.SEN_NUM]);                        
             district = metrics.filter(dist => dist.fields.office == "State Senate").filter(dist => dist.fields.district_no == features[0].properties.SEN_NUM)[0];            
           }
           popup = new mapboxgl.Popup({closeButton: false})
@@ -114,12 +114,12 @@ export class MapComponent implements OnInit {
         //set popup data according to district type
         if (type == "Congress") {
           popup_text = "Congressional District " + features[0].properties.DISTRICT;          
-          map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
+          // map.setFilter("congress-hover", ["==", "DISTRICT", features[0].properties.DISTRICT]); 
           district = metrics.filter(dist => dist.fields.office == "House").filter(dist => dist.fields.district_no == features[0].properties.DISTRICT)[0];          
         }
         else if (type == "Assembly") {
           popup_text = "State Assembly District " + features[0].properties.District_S;
-          map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                              
+          // map.setFilter("assembly-hover", ["==", "District_S", features[0].properties.District_S]);                              
           district = metrics.filter(dist => dist.fields.office == "State Assembly").filter(dist => dist.fields.district_no == features[0].properties.District_S)[0];          
         }
         else {
