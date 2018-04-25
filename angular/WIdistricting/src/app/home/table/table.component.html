@@ -2,7 +2,7 @@
   <div class="row">
     <section class="mat-typography" style="margin-top: 20px">
       <h1 class="mat-h1">Statewide Metrics</h1>
-      <p>These metrics are based on averages of aggregated district metrics</p>
+      <p>These metrics can be used to help understand the fairness of district plans.</p>
     </section>
   </div>
   <div class="row">
@@ -33,11 +33,11 @@
         </ng-container>
 
         <ng-container matColumnDef="efficiency_gap">
-          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures a political party’s wasted votes from packing and cracking"> Average Efficiency Gap </span></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures a political party’s wasted votes from packing and cracking"> Efficiency Gap (2016)</span></mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.efficiency_gap}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="mean_median_diff">
-          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures how much a party’s mean and median vote shares diverge"> Mean Median Difference </span></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><span matTooltip="Measures how much a party’s mean and median vote shares diverge"> Mean-Median Difference (Democrats 2016) </span></mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.mean_median_diff}} </mat-cell>
         </ng-container>
 
