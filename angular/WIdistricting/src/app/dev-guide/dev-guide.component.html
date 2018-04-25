@@ -54,7 +54,7 @@
         <h1>Library API</h1>
         <h2>District</h2>
         <p>This class is a parameter to all the metric functions, either individually or a part of an iterable district plan.</p>
-        <p>District(id, population, votes, party_votes, geometry)</p>
+        <strong><p>District(id, population, votes, party_votes, geometry)</p></strong>
         <ul>
           <li>param id: the unique identifier for this district</li>
           <li>param population: population of this district</li>
@@ -64,24 +64,24 @@
         </ul>
         <h2>compactness</h2>
         <p>This module contains the compactness metrics which require GDAL. The district passed to these modules must have the geometry variable specified.</p>
-        <p>polsby_popper(district)</p>
+        <strong><p>polsby_popper(district)</p></strong>
         <ul>
           <li>param district: a District object with a geometry</li>
           <li>return: the ratio of the area of the district to the area of a circle whose circumference is equal to the perimeter of the district</li>
         </ul>
-        <p>schwartzberg(district)</p>
+        <strong><p>schwartzberg(district)</p></strong>
         <ul>
           <li>param district: a District object with a geometry</li>
           <li>return: the ratio of the perimeter of the district to the circumference of a circle whose area is equal to the area of the district</li>
         </ul>
-        <p>convex_hull_ratio(district)</p>
+        <strong><p>convex_hull_ratio(district)</p></strong>
         <ul>
           <li>param district: a District object with a geometry</li>
           <li>return: the measure is the ratio of the area of the district to the area of the minimum convex polygon that can enclose the district’s geometry</li>
         </ul>
         <h2>equal population</h2>
         <p>This module has two equal population metrics that determine the number of districts in a plan that fall within a target range of population. The district_plan passed to this module must be an iterable of Districts. Each district must have the population field specified.</p>
-        <p>districts_in_range(district_plan, min_target, max_target)</p>
+        <strong><p>districts_in_range(district_plan, min_target, max_target)</p></strong>
         <ul>
           <li>param district_plan: an iterable of Districts</li>
           <li>param min_target: the minimum value for the population</li>
@@ -89,7 +89,7 @@
           <li>param min_target: the minimum value for the population</li>
           <li>return: the number of districts with populations in range (min_target <= population <= max_target)</li>
         </ul>
-        <p>districts_in_percent_deviation(district_plan, percent_deviation)</p>
+        <strong><p>districts_in_percent_deviation(district_plan, percent_deviation)</p></strong>
         <ul>
           <li>param district_plan: an iterable of Districts</li>
           <li>param percent_deviation: the acceptable deviation percentage</li>
@@ -97,14 +97,14 @@
         </ul>
       <h2>partisan_symmetry</h2>
       <p>This module contains the partisan symmetry metrics. The functions measure the number of wasted votes in different ways.</p>
-      <p>efficiency_gap(district_plan, party_a, party_b)</p>
+      <strong><p>efficiency_gap(district_plan, party_a, party_b)</p></strong>
       <ul>
         <li>param district_plan: an iterable of Districts</li>
         <li>param party_a: key value / name of party a (Democratic by convention - positive scores denote pro-Democratic asymmetries)</li>
         <li>param party_b: key value / name of party b (Republican by convention - negative scores denote pro-Republican asymmetries)</li>
         <li>return: the efficiency gap (positive for party a, negative for party b)</li>
       </ul>
-      <p>mean_median_diff(district_plan, party_to_analyze, competing_party)</p>
+      <strong><p>mean_median_diff(district_plan, party_to_analyze, competing_party)</p></strong>
       <ul>
         <li>param district_plan: an iterable of Districts</li>
         <li>param party_to_analyze: the key specifying which party to analyze</li>
@@ -114,7 +114,7 @@
           <li style='margin-left: 4em'>- a negative score means the analyzed party may have a disadvantage</li>
           <li style='margin-left: 4em'>- a positive score means the analyzed party may have an advantage</li>
       </ul>
-      <p>competitiveness(district_plan, party_a, party_b, range)</p>
+      <strong><p>competitiveness(district_plan, party_a, party_b, range)</p></strong>
       <ul>
         <li>param district_plan: an iterable of Districts</li>
         <li>param party_a: key value / name of party a (Democratic by convention)</li>
